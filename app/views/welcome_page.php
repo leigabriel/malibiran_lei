@@ -26,7 +26,7 @@
 
         <!-- Subtext -->
             <p class="mt-6 text-2xl max-w-5xl font-medium text-gray-700">
-                Manage and organize student records with ease.
+                Effortlessly track, update, and manage all student information in one place.
             </p>
 
         <!-- Call-to-Action Links -->
