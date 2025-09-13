@@ -19,23 +19,19 @@ defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
 
 <body class="bg-gray-100">
 
-    <!-- Home Section -->
     <section
         class="min-h-screen flex flex-col justify-center items-center text-center px-6 sm:px-12 bg-white rounded-b-3xl text-black relative">
 
-        <!-- Main Heading -->
         <h1
             class="font-extrabold uppercase leading-snug tracking-tight text-4xl sm:text-6xl md:text-7xl max-w-3xl sm:max-w-5xl lg:max-w-7xl">
             Student Management System
         </h1>
 
-        <!-- Subtext -->
         <p
             class="mt-4 sm:mt-6 text-lg sm:text-xl md:text-2xl max-w-md sm:max-w-3xl md:max-w-5xl font-medium text-gray-700">
             Effortlessly track, update, and manage all student information in one place.
         </p>
 
-        <!-- Call-to-Action Links -->
         <div class="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
             <button onclick="openLogin('<?= site_url('students/index'); ?>')"
                 class="px-6 py-3 bg-blue-600 text-white rounded-full font-semibold text-sm sm:text-base hover:bg-blue-700 transition">
@@ -48,7 +44,6 @@ defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
         </div>
     </section>
 
-    <!-- Login Modal -->
     <div id="loginModal"
         class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
         <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6 relative">
