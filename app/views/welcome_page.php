@@ -24,28 +24,81 @@ defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
         class="min-h-screen flex flex-col justify-center items-center text-center px-6 sm:px-12 bg-white rounded-b-3xl text-black relative">
 
         <!-- Main Heading -->
-        <h1 class="font-extrabold uppercase leading-snug tracking-tight text-4xl sm:text-6xl md:text-7xl max-w-3xl sm:max-w-5xl lg:max-w-7xl">
+        <h1
+            class="font-extrabold uppercase leading-snug tracking-tight text-4xl sm:text-6xl md:text-7xl max-w-3xl sm:max-w-5xl lg:max-w-7xl">
             Student Management System
         </h1>
 
         <!-- Subtext -->
-        <p class="mt-4 sm:mt-6 text-lg sm:text-xl md:text-2xl max-w-md sm:max-w-3xl md:max-w-5xl font-medium text-gray-700">
+        <p
+            class="mt-4 sm:mt-6 text-lg sm:text-xl md:text-2xl max-w-md sm:max-w-3xl md:max-w-5xl font-medium text-gray-700">
             Effortlessly track, update, and manage all student information in one place.
         </p>
 
         <!-- Call-to-Action Links -->
         <div class="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
-            <a href="<?= site_url('students/index'); ?>"
+            <button onclick="openLogin('<?= site_url('students/index'); ?>')"
                 class="px-6 py-3 bg-blue-600 text-white rounded-full font-semibold text-sm sm:text-base hover:bg-blue-700 transition">
                 Manage Students
-            </a>
-            <a href="<?= site_url('students/create'); ?>"
+            </button>
+            <button onclick="openLogin('<?= site_url('students/create'); ?>')"
                 class="px-6 py-3 border-2 border-blue-600 text-blue-600 rounded-full font-semibold text-sm sm:text-base hover:bg-blue-50 transition">
                 Add New Student
-            </a>
+            </button>
         </div>
-
     </section>
+
+    <!-- Login Modal -->
+    <div id="loginModal"
+        class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6 relative">
+            <h2 class="text-xl font-bold mb-4 text-center">Login</h2>
+
+            <form onsubmit="return handleLogin(event)" class="space-y-4">
+                <div>
+                    <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+                    <input type="text" id="username" class="w-full px-3 py-2 border rounded-lg" required>
+                </div>
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                    <input type="password" id="password" class="w-full px-3 py-2 border rounded-lg" required>
+                </div>
+                <button type="submit"
+                    class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+                    Login
+                </button>
+                <button type="button" onclick="closeLogin()"
+                    class="w-full mt-2 bg-gray-300 text-gray-800 py-2 rounded-lg hover:bg-gray-400 transition">
+                    Cancel
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let redirectUrl = "";
+
+        function openLogin(url) {
+            redirectUrl = url;
+            document.getElementById("loginModal").classList.remove("hidden");
+        }
+
+        function closeLogin() {
+            document.getElementById("loginModal").classList.add("hidden");
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            if (username === "admin" && password === "1234") {
+                window.location.href = redirectUrl;
+            } else {
+                alert("Invalid credentials. Try admin / 1234");
+            }
+        }
+    </script>
 
 </body>
 
