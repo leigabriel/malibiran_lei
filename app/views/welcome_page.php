@@ -58,13 +58,13 @@ defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
                     <label for="username" class="block text-sm text-gray-600 mb-1">Username</label>
                     <input type="text" id="username"
                         class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm"
-                        placeholder="Enter username" required>
+                        placeholder="username" required>
                 </div>
                 <div>
                     <label for="password" class="block text-sm text-gray-600 mb-1">Password</label>
                     <input type="password" id="password"
                         class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm"
-                        placeholder="••••••••" required>
+                        placeholder="password" required>
                 </div>
                 <button type="submit"
                     class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition text-sm font-medium">
