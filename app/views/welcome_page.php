@@ -33,14 +33,14 @@ defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
         </p>
 
         <div class="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
-            <button onclick="openLogin('<?= site_url('students/index'); ?>')"
-                class="px-6 py-3 bg-blue-600 text-white rounded-full font-semibold text-sm sm:text-base hover:bg-blue-700 transition">
-                Manage Students
-            </button>
-            <button onclick="openLogin('<?= site_url('students/create'); ?>')"
-                class="px-6 py-3 border-2 border-blue-600 text-blue-600 rounded-full font-semibold text-sm sm:text-base hover:bg-blue-50 transition">
-                Add New Student
-            </button>
+                <a href="<?= site_url('students/index'); ?>"
+                    class="px-6 py-3 bg-blue-600 text-white rounded-full font-semibold text-sm sm:text-base hover:bg-blue-700 transition text-center">
+                    Manage Students
+                </a>
+                <a href="<?= site_url('students/create'); ?>"
+                    class="px-6 py-3 border-2 border-blue-600 text-blue-600 rounded-full font-semibold text-sm sm:text-base hover:bg-blue-50 transition text-center">
+                    Add New Student
+                </a>
         </div>
     </section>
 
