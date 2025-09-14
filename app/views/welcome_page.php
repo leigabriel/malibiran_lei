@@ -44,6 +44,7 @@ defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
         </div>
     </section>
 
+    <!--
     <div id="loginModal"
         class="hidden fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
         <div
@@ -77,7 +78,9 @@ defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
             </form>
         </div>
     </div>
+    -->
 
+    <!--
     <script>
         let redirectUrl = "";
 
@@ -102,6 +105,7 @@ defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
             }
         }
     </script>
+    -->
 
 </body>
 

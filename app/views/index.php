@@ -15,6 +15,7 @@
 
 <body class="min-h-screen bg-gray-200 flex items-center justify-center p-4 sm:p-6">
 
+    <!--
     <div class="fixed top-3 right-3 sm:top-4 sm:right-4 z-50">
         <a href="<?= site_url('/'); ?>"
             onclick="return confirm('Are you sure you want to sign out?');"
@@ -22,6 +23,7 @@
             Sign Out
         </a>
     </div>
+    -->
 
     <div
         class="w-full max-w-7xl bg-white border-2 border-black/50 shadow-lg shadow-[#212631] rounded-lg p-4 sm:p-6 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
