@@ -21,8 +21,26 @@ class UserController extends Controller {
         echo '</pre>';
     }
 
-    public function index(){
-        $data['students'] = $this->UserModel->all();
+    // Search and pagination for students
+    public function index() {
+    $search = isset($_GET['search']) ? $_GET['search'] : '';
+    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $perPage = 5;
+
+        $where = [];
+        if (!empty($search)) {
+            $where[] = "(last_name LIKE '%$search%' OR first_name LIKE '%$search%' OR email LIKE '%$search%')";
+        }
+
+        $offset = ($page - 1) * $perPage;
+        $students = $this->UserModel->get_students($where, $perPage, $offset);
+        $total = $this->UserModel->count_students($where);
+
+        $data['students'] = $students;
+        $data['search'] = $search;
+        $data['page'] = $page;
+        $data['total'] = $total;
+        $data['perPage'] = $perPage;
         $this->call->view('index', $data);
     }
 

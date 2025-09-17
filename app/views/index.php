@@ -43,26 +43,26 @@
                 </p>
             </div>
 
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+            <form method="get" action="" class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
                 <div class="flex flex-col sm:flex-row gap-2 w-full sm:w-2/3">
-                    <input id="searchInput" type="text" placeholder="Enter name or email..."
+                    <input name="search" type="text" value="<?= isset($search) ? htmlspecialchars($search) : '' ?>" placeholder="Enter name or email..."
                         class="flex-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
                     <div class="flex gap-2 mt-2 sm:mt-0">
-                        <button id="searchBtn"
+                        <button type="submit"
                             class="px-4 py-2 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition">
                             Search
                         </button>
-                        <button id="clearBtn"
+                        <a href="?"
                             class="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400 transition">
                             Clear
-                        </button>
+                        </a>
                     </div>
                 </div>
                 <a href="<?= site_url('students/create'); ?>"
                     class="mt-2 sm:mt-0 px-4 py-2 bg-green-600 text-white font-semibold rounded hover:bg-green-700 transition">
                     Add Student
                 </a>
-            </div>
+            </form>
 
             <div class="bg-white p-2 sm:p-4 rounded-lg border border-gray-200 shadow-sm flex flex-col gap-4 overflow-x-auto">
 
@@ -100,11 +100,16 @@
 
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mt-2 sm:mt-4 gap-2">
                     <div class="flex gap-2">
-                        <button id="prevPage"
-                            class="px-3 py-1 bg-gray-300 text-gray-800 rounded hover:bg-gray-400 transition">Previous</button>
-                        <span id="pageInfo" class="text-gray-600 self-center"></span>
-                        <button id="nextPage"
-                            class="px-3 py-1 bg-gray-300 text-gray-800 rounded hover:bg-gray-400 transition">Next</button>
+                        <?php
+                        $totalPages = ceil($total / $perPage);
+                        $currentPage = isset($page) ? (int)$page : 1;
+                        $searchParam = isset($search) && $search !== '' ? '&search=' . urlencode($search) : '';
+                        ?>
+                        <a href="?page=<?= max(1, $currentPage - 1) . $searchParam ?>"
+                            class="px-3 py-1 bg-gray-300 text-gray-800 rounded hover:bg-gray-400 transition <?= $currentPage <= 1 ? 'pointer-events-none opacity-50' : '' ?>">Previous</a>
+                        <span class="text-gray-600 self-center">Page <?= $currentPage ?> of <?= $totalPages ?></span>
+                        <a href="?page=<?= min($totalPages, $currentPage + 1) . $searchParam ?>"
+                            class="px-3 py-1 bg-gray-300 text-gray-800 rounded hover:bg-gray-400 transition <?= $currentPage >= $totalPages ? 'pointer-events-none opacity-50' : '' ?>">Next</a>
                     </div>
                 </div>
             </div>
@@ -112,65 +117,6 @@
         </div>
     </div>
 
-    <script>
-        const rows = Array.from(document.querySelectorAll("#studentBody tr"));
-        const searchInput = document.getElementById("searchInput");
-        const searchBtn = document.getElementById("searchBtn");
-        const clearBtn = document.getElementById("clearBtn");
-        const prevPage = document.getElementById("prevPage");
-        const nextPage = document.getElementById("nextPage");
-        const pageInfo = document.getElementById("pageInfo");
-
-        let currentPage = 1;
-        const rowsPerPage = 5;
-        let filteredRows = [...rows];
-
-        function renderTable() {
-            const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
-            if (currentPage > totalPages) currentPage = totalPages || 1;
-
-            rows.forEach(r => r.style.display = "none");
-            filteredRows.forEach((row, index) => {
-                const start = (currentPage - 1) * rowsPerPage;
-                const end = currentPage * rowsPerPage;
-                if (index >= start && index < end) {
-                    row.style.display = "";
-                }
-            });
-
-            pageInfo.textContent = `Page ${currentPage} of ${totalPages || 1}`;
-            prevPage.disabled = currentPage === 1;
-            nextPage.disabled = currentPage === totalPages || totalPages === 0;
-        }
-
-        searchBtn.addEventListener("click", () => {
-            const query = searchInput.value.toLowerCase();
-            filteredRows = rows.filter(row => row.innerText.toLowerCase().includes(query));
-            currentPage = 1;
-            renderTable();
-        });
-
-        clearBtn.addEventListener("click", () => {
-            searchInput.value = "";
-            filteredRows = [...rows];
-            currentPage = 1;
-            renderTable();
-        });
-
-        prevPage.addEventListener("click", () => {
-            if (currentPage > 1) {
-                currentPage--;
-                renderTable();
-            }
-        });
-
-        nextPage.addEventListener("click", () => {
-            currentPage++;
-            renderTable();
-        });
-
-        renderTable();
-    </script>
 
 </body>
 
