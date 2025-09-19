@@ -7,6 +7,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
  * Automatically generated via CLI.
  */
 class UserModel extends Model {
+    
     // Get students with optional search and pagination
     public function get_students($where = [], $limit = 5, $offset = 0) {
     $table = $this->table;
