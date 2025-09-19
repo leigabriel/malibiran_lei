@@ -1,3 +1,11 @@
+# Student Management System (CRUD) using LavaLust 4
+
+This project is a simple **Student Management System** built with **LavaLust 4 (Latest 4.2.4)**.  
+It demonstrates basic **CRUD (Create, Read, Update, Delete)** operations where you can add new students, view student lists, update records, and delete entries.  
+The goal is to provide a practical example of how to use **LavaLust’s MVC structure** for building lightweight PHP web applications while following clean coding practices.
+
+---
+
 ## LavaLust 4 (Latest 4.2.4)
 <p align="center">
     <img width="200" height="300" src="https://raw.githubusercontent.com/ronmarasigan/LavaLust-Docs/master/assets/images/logo1.png">
