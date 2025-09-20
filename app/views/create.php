@@ -8,8 +8,8 @@ defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create User</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>User Management | Create User</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
         body {
             font-family: 'Fira Code', monospace;
@@ -49,7 +49,7 @@ defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
 
         <a href="<?= site_url('users/show'); ?>"
             class="mt-4 inline-block text-center w-full py-2 border border-gray-500 rounded-md hover:border-green-400 hover:text-green-400 transition">
-            ← Back to Dashboard
+            ← Back to Management
         </a>
     </div>
 

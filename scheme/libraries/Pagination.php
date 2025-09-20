@@ -159,7 +159,14 @@ class Pagination
                     'active' => 'z-10 bg-indigo-50 border-indigo-500 text-indigo-600 hover:bg-indigo-50'
                 ];
                 break;
-            case 'custom':
+            case 'lei-custom':
+                $this->classes = [
+                    'nav'    => 'flex justify-center mt-4',
+                    'ul'     => 'inline-flex gap-2', // spacing between buttons
+                    'li'     => '', // no extra padding needed, controlled in <a>
+                    'a'      => 'w-10 h-10 flex items-center justify-center text-sm font-medium text-white bg-gray-700 rounded-full border border-gray-600 focus:outline-none',
+                    'active' => 'w-10 h-10 flex items-center justify-center text-sm font-medium text-yellow-400 bg-gray-700 rounded-full border border-gray-600'
+                ];
                 // Custom classes can be set using set_custom_classes()
                 break;
         }

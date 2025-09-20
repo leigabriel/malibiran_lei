@@ -8,23 +8,62 @@ defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Data Management</title>
+    <title>User Management</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
         body {
             font-family: 'Fira Code', monospace;
+        }
+
+        /* Full-screen loading overlay */
+        #loadingOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        /* Spinner animation */
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
     </style>
 </head>
 
 <body class="bg-[#212631] text-white">
 
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="flex">
+        <div class="spinner"></div>
+    </div>
+
     <section
         class="min-h-screen flex flex-col justify-center items-center text-center px-6 sm:px-12 bg-[#2a2f3e] rounded-b-3xl relative shadow-lg">
 
         <h1
             class="font-extrabold uppercase leading-snug tracking-tight text-4xl sm:text-6xl md:text-7xl max-w-3xl sm:max-w-5xl lg:max-w-7xl">
-            User Data Management
+            User Management
         </h1>
 
         <p
@@ -34,14 +73,17 @@ defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
 
         <div class="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
             <a href="<?= site_url('users/show'); ?>"
-                class="px-6 py-3 bg-[#64b5f6] text-[#212631] rounded-full font-semibold text-sm sm:text-base hover:bg-[#42a5f5] transition text-center">
+                onclick="showLoading(event)"
+                class="px-6 py-3 bg-[#64b5f6] text-[#212631] rounded-full font-semibold text-sm sm:text-base transition text-center">
                 View Users
             </a>
             <a href="<?= site_url('users/create'); ?>"
-                class="px-6 py-3 border-2 border-[#64b5f6] text-[#64b5f6] rounded-full font-semibold text-sm sm:text-base hover:bg-[#42b0f5]/20 transition text-center">
+                onclick="showLoading(event)"
+                class="px-6 py-3 border-2 border-[#64b5f6] text-[#64b5f6] rounded-full font-semibold text-sm sm:text-base transition text-center">
                 Add New User
             </a>
         </div>
+
         <!-- Footer -->
         <footer class="text-center text-gray-400 text-sm py-4 mt-6">
             Page rendered in <strong><?php echo lava_instance()->performance->elapsed_time('lavalust'); ?></strong> seconds.
@@ -51,6 +93,21 @@ defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
             <?php endif; ?>
         </footer>
     </section>
+
+    <script>
+        function showLoading(event) {
+            event.preventDefault(); // Stop default link navigation
+            const url = event.currentTarget.href;
+
+            // Show overlay
+            document.getElementById('loadingOverlay').style.display = 'flex';
+
+            // Redirect after a tiny delay to allow overlay to render
+            setTimeout(() => {
+                window.location.href = url;
+            }, 1000);
+        }
+    </script>
 
 </body>
 
