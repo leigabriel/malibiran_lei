@@ -1,11 +1,6 @@
 <?php
 defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
-/**
- * Controller: UserController
- * 
- * Automatically generated via CLI.
- */
 class UserController extends Controller {
     public function __construct()
     {
@@ -14,34 +9,40 @@ class UserController extends Controller {
         $this->call->model('UserModel');
     }
 
-    public function getall()
-    {
-        echo '<pre>';
-        print_r($this->UserModel->all());
-        echo '</pre>';
-    }
-
-    // Search and pagination for students
-    public function index() {
-    $search = isset($_GET['search']) ? $_GET['search'] : '';
-    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-        $perPage = 5;
-
-        $where = [];
-        if (!empty($search)) {
-            $where[] = "(last_name LIKE '%$search%' OR first_name LIKE '%$search%' OR email LIKE '%$search%')";
+    public function show(){
+        // Get current page (default 1)
+        $page = 1;
+        if(isset($_GET['page']) && ! empty($_GET['page'])) {
+            $page = $this->io->get('page');
         }
 
-        $offset = ($page - 1) * $perPage;
-        $students = $this->UserModel->get_students($where, $perPage, $offset);
-        $total = $this->UserModel->count_students($where);
+        // Get search query (optional)
+        $q = '';
+        if(isset($_GET['q']) && ! empty($_GET['q'])) {
+            $q = trim($this->io->get('q'));
+        }
 
-        $data['students'] = $students;
-        $data['search'] = $search;
-        $data['page'] = $page;
-        $data['total'] = $total;
-        $data['perPage'] = $perPage;
-        $this->call->view('index', $data);
+        $records_per_page = 15; // number of users per page
+
+        // Call model's pagination method
+        $all = $this->UserModel->page($q, $records_per_page, $page);
+        $data['users'] = $all['records'];
+        $total_rows = $all['total_rows'];
+
+        // Configure pagination
+        $this->pagination->set_options([
+            'first_link'     => '⏮ First',
+            'last_link'      => 'Last ⏭',
+            'next_link'      => 'Next →',
+            'prev_link'      => '← Prev',
+            'page_delimiter' => '&page='
+        ]);
+        $this->pagination->set_theme('tailwind'); // themes: bootstrap, tailwind, custom
+        $this->pagination->initialize($total_rows, $records_per_page, $page, site_url('users/show').'?q='.$q);
+
+        // Send data to view
+        $data['page'] = $this->pagination->paginate();
+        $this->call->view('show', $data);
     }
 
     public function create() {
@@ -55,18 +56,17 @@ class UserController extends Controller {
                 'email' => $email
             );
             if($this->UserModel->insert($data)){
-                redirect('students/index');
+                redirect('users/show');
             } else {
                 echo 'Something went wrong';
             }
         } else {
             $this->call->view('create');
         }
-        
     }
 
     public function update($id) {
-        $data['students'] = $this->UserModel->find($id);
+        $data['user'] = $this->UserModel->find($id);
         if($this->io->method() == 'post'){
             $lastname = $this->io->post('last_name');
             $firstname = $this->io->post('first_name');
@@ -77,7 +77,7 @@ class UserController extends Controller {
                 'email' => $email
             );
             if($this->UserModel->update($id, $data)){
-                redirect('students/index');
+                redirect('users/show');
             } else {
                 echo 'Something went wrong';
             }
@@ -88,26 +88,9 @@ class UserController extends Controller {
 
     public function delete($id){
         if($this->UserModel->delete($id)){
-            redirect('students/index');
+            redirect('users/show');
         } else {
             echo 'Something went wrong';
         }
     }
-
-    public function soft_delete($id){
-        if($this->UserModel->soft_delete($id)){
-            redirect('students/index');
-        } else {
-            echo 'Something went wrong';
-        }
-    }
-
-    public function restore($id){
-        if($this->UserModel->restore($id)){
-            redirect('students/index');
-        } else {
-            echo 'Something went wrong';
-        }
-    }
-
 }

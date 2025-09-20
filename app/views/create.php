@@ -1,11 +1,15 @@
+<?php
+defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Student</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>Create User</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
             font-family: 'Fira Code', monospace;
@@ -13,53 +17,40 @@
     </style>
 </head>
 
-<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+<body class="bg-[#212631] text-white font-mono min-h-screen flex items-center justify-center p-4">
 
-    <div class="grid grid-cols-1 md:grid-cols-2 w-full max-w-4xl bg-white rounded-xl border-2 border-black/50 shadow-lg shadow-[#212631] overflow-hidden">
+    <div class="bg-[#2a2f3e] rounded-xl p-8 w-full max-w-md shadow-lg">
+        <h1 class="text-2xl md:text-3xl font-bold mb-6 text-center text-green-400">Create New User</h1>
 
-        <div class="bg-gray-200 h-64 md:h-auto">
-            <img src="https://i.pinimg.com/1200x/09/3f/67/093f6715d49d8f14a65c5c8a56050b34.jpg"
-                alt="Students Illustration"
-                class="w-full h-full object-cover">
-        </div>
-
-        <div class="flex items-center justify-center p-4 md:p-6">
-            <div class="w-full max-w-sm">
-                <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">Add Student</h1>
-
-                <form action="<?= site_url('students/create'); ?>" method="post" class="space-y-4">
-                    <div>
-                        <label for="last_name" class="block text-sm font-medium text-gray-700">Last Name</label>
-                        <input type="text" id="last_name" name="last_name"
-                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 transition" required>
-                    </div>
-
-                    <div>
-                        <label for="first_name" class="block text-sm font-medium text-gray-700">First Name</label>
-                        <input type="text" id="first_name" name="first_name"
-                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 transition" required>
-                    </div>
-
-                    <div>
-                        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                        <input type="email" id="email" name="email"
-                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 transition" required>
-                    </div>
-
-                    <div class="flex flex-col sm:flex-row justify-between items-stretch sm:items-center mt-4 gap-2">
-                        <button type="submit"
-                            class="w-full sm:w-auto px-4 py-2 bg-green-600 text-white font-semibold rounded-lg shadow hover:bg-green-700 transition">
-                            Add
-                        </button>
-                        <a href="<?= site_url('students/index'); ?>"
-                            class="w-full sm:w-auto px-4 py-2 bg-gray-300 text-gray-800 font-semibold rounded-lg shadow hover:bg-gray-400 transition">
-                            Cancel
-                        </a>
-                    </div>
-                </form>
+        <form action="<?= site_url('users/create'); ?>" method="post" class="flex flex-col gap-4">
+            <div class="flex flex-col">
+                <label for="last_name" class="text-green-400 font-semibold mb-1">Last Name</label>
+                <input type="text" id="last_name" name="last_name" required
+                    class="px-4 py-2 rounded-md bg-[#2d2d3d] border border-gray-600 focus:outline-none focus:border-green-400 focus:ring-1 focus:ring-green-400 text-white">
             </div>
-        </div>
 
+            <div class="flex flex-col">
+                <label for="first_name" class="text-green-400 font-semibold mb-1">First Name</label>
+                <input type="text" id="first_name" name="first_name" required
+                    class="px-4 py-2 rounded-md bg-[#2d2d3d] border border-gray-600 focus:outline-none focus:border-green-400 focus:ring-1 focus:ring-green-400 text-white">
+            </div>
+
+            <div class="flex flex-col">
+                <label for="email" class="text-green-400 font-semibold mb-1">Email</label>
+                <input type="email" id="email" name="email" required
+                    class="px-4 py-2 rounded-md bg-[#2d2d3d] border border-gray-600 focus:outline-none focus:border-green-400 focus:ring-1 focus:ring-green-400 text-white">
+            </div>
+
+            <button type="submit"
+                class="mt-4 py-2 bg-green-500 hover:bg-green-600 text-[#212631] font-bold rounded-md transition">
+                Create User
+            </button>
+        </form>
+
+        <a href="<?= site_url('users/show'); ?>"
+            class="mt-4 inline-block text-center w-full py-2 border border-gray-500 rounded-md hover:border-green-400 hover:text-green-400 transition">
+            ← Back to Dashboard
+        </a>
     </div>
 
 </body>
