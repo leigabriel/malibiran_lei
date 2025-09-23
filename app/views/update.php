@@ -23,22 +23,38 @@ defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
         <h1 class="text-2xl md:text-3xl font-bold mb-6 text-center text-blue-400">Update User</h1>
 
         <form id="updateForm" action="<?= site_url('users/update/' . $user['id']); ?>" method="post" class="flex flex-col gap-4">
+
+            <!-- Last Name -->
             <div class="flex flex-col">
                 <label for="last_name" class="text-blue-400 font-semibold mb-1">Last Name</label>
                 <input type="text" id="last_name" name="last_name" value="<?= html_escape($user['last_name']); ?>" required
                     class="px-4 py-2 rounded-md bg-[#2d2d3d] border border-gray-600 focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400 text-white">
             </div>
 
+            <!-- First Name -->
             <div class="flex flex-col">
                 <label for="first_name" class="text-blue-400 font-semibold mb-1">First Name</label>
                 <input type="text" id="first_name" name="first_name" value="<?= html_escape($user['first_name']); ?>" required
                     class="px-4 py-2 rounded-md bg-[#2d2d3d] border border-gray-600 focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400 text-white">
             </div>
 
+            <!-- Email -->
             <div class="flex flex-col">
                 <label for="email" class="text-blue-400 font-semibold mb-1">Email</label>
                 <input type="email" id="email" name="email" value="<?= html_escape($user['email']); ?>" required
                     class="px-4 py-2 rounded-md bg-[#2d2d3d] border border-gray-600 focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400 text-white">
+            </div>
+
+            <!-- Status -->
+            <div class="flex flex-col">
+                <label for="status" class="text-blue-400 font-semibold mb-1">Status</label>
+                <select id="status" name="status" required
+                    class="px-4 py-2 rounded-md bg-[#2d2d3d] border border-gray-600 focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400 text-white">
+                    <option value="" disabled <?= empty($user['status']) ? 'selected' : '' ?>>-- Select Status --</option>
+                    <option value="N/A" <?= ($user['status'] === 'N/A') ? 'selected' : '' ?>>N/A</option>
+                    <option value="Active" <?= ($user['status'] === 'Active') ? 'selected' : '' ?>>Active</option>
+                    <option value="Inactive" <?= ($user['status'] === 'Inactive') ? 'selected' : '' ?>>Inactive</option>
+                </select>
             </div>
 
             <!-- Update Button -->
@@ -47,13 +63,13 @@ defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
                 Update User
             </button>
 
-            <!--Update Modal -->
+            <!-- Update Modal -->
             <div id="updateModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
                 <div class="bg-[#212631] text-white p-6 rounded-lg w-80 text-center">
                     <h2 class="text-lg font-bold mb-4">Confirm Update</h2>
                     <p class="mb-6">Are you sure you want to update this user?</p>
                     <div class="flex justify-center gap-4">
-                        <button type="button" onclick="submitUpdateForm()"
+                        <button type="button" onclick="confirmUpdate()"
                             class="px-4 py-2 bg-blue-500 text-[#212631] rounded-md font-semibold">Yes, Update</button>
                         <button type="button" onclick="closeUpdateModal()"
                             class="px-4 py-2 bg-gray-700 rounded-md font-semibold">Cancel</button>
@@ -68,8 +84,15 @@ defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
         </a>
     </div>
 
+    <!-- Success Popup (hidden by default, centered) -->
+    <div id="successPopup" class="hidden fixed inset-0 flex items-center justify-center z-50">
+        <div class="bg-blue-500 text-[#ebebeb] px-6 py-3 rounded-lg shadow-lg font-bold">
+            ✅ User updated successfully!
+        </div>
+    </div>
+
     <script>
-        // Update Modal Function
+        // Modal Controls
         function openUpdateModal() {
             document.getElementById('updateModal').classList.remove('hidden');
         }
@@ -78,10 +101,23 @@ defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
             document.getElementById('updateModal').classList.add('hidden');
         }
 
-        function submitUpdateForm() {
-            document.getElementById('updateForm').submit();
+        // Confirm Update -> Show Popup -> Submit
+        function confirmUpdate() {
+            const popup = document.getElementById("successPopup");
+            const form = document.getElementById("updateForm");
+
+            // Close modal first
+            closeUpdateModal();
+
+            // Show success popup
+            popup.classList.remove("hidden");
+
+            // Hide popup after 0.5s and then submit
+            setTimeout(() => {
+                popup.classList.add("hidden");
+                form.submit();
+            }, 500);
         }
-        //
     </script>
 </body>
 

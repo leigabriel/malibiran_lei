@@ -22,7 +22,7 @@ defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
     <div class="bg-[#2a2f3e] rounded-xl p-8 w-full max-w-md shadow-lg">
         <h1 class="text-2xl md:text-3xl font-bold mb-6 text-center text-green-400">Create New User</h1>
 
-        <form action="<?= site_url('users/create'); ?>" method="post" class="flex flex-col gap-4">
+        <form id="createUserForm" action="<?= site_url('users/create'); ?>" method="post" class="flex flex-col gap-4">
             <div class="flex flex-col">
                 <label for="last_name" class="text-green-400 font-semibold mb-1">Last Name</label>
                 <input type="text" id="last_name" name="last_name" required
@@ -52,6 +52,34 @@ defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
             ← Back to Management
         </a>
     </div>
+
+    <!-- Popup (hidden by default, centered) -->
+    <div id="successPopup"
+        class="hidden fixed inset-0 flex items-center justify-center">
+        <div class="bg-green-500 text-[#ebebeb] px-6 py-3 rounded-lg shadow-lg font-bold">
+            ✅ User created successfully!
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById("createUserForm");
+        const popup = document.getElementById("successPopup");
+
+        form.addEventListener("submit", function(event) {
+            event.preventDefault(); // prevent default form submit (for demo)
+
+            // Show popup
+            popup.classList.remove("hidden");
+
+            // Hide popup after 3 seconds
+            setTimeout(() => {
+                popup.classList.add("hidden");
+            }, 3000);
+
+            // If you want to actually submit the form to PHP after showing popup:
+            setTimeout(() => form.submit(), 500);
+        });
+    </script>
 
 </body>
 

@@ -10,6 +10,7 @@ defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Management</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <style>
         body {
             font-family: 'Fira Code', monospace;
@@ -61,31 +62,33 @@ defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
     <section
         class="min-h-screen flex flex-col justify-center items-center text-center px-6 sm:px-12 bg-[#2a2f3e] rounded-b-3xl relative shadow-lg">
 
-        <h1
+        <h1 data-aos="fade-down"
             class="font-extrabold uppercase leading-snug tracking-tight text-4xl sm:text-6xl md:text-7xl max-w-3xl sm:max-w-5xl lg:max-w-7xl">
             User Management
         </h1>
 
-        <p
+        <p data-aos="fade-up"
             class="mt-4 sm:mt-6 text-lg sm:text-xl md:text-2xl max-w-md sm:max-w-3xl md:max-w-5xl font-medium text-gray-300">
             Effortlessly view, add, and manage all user information in one place.
         </p>
 
-        <div class="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
+        <div data-aos="zoom-in" class="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
             <a href="<?= site_url('users/show'); ?>"
                 onclick="showLoading(event)"
+                data-aos="fade-right"
                 class="px-6 py-3 bg-[#64b5f6] text-[#212631] rounded-full font-semibold text-sm sm:text-base transition text-center">
                 View Users
             </a>
             <a href="<?= site_url('users/create'); ?>"
                 onclick="showLoading(event)"
+                data-aos="fade-left"
                 class="px-6 py-3 border-2 border-[#64b5f6] text-[#64b5f6] rounded-full font-semibold text-sm sm:text-base transition text-center">
                 Add New User
             </a>
         </div>
 
         <!-- Footer -->
-        <footer class="text-center text-gray-400 text-sm py-4 mt-6">
+        <footer data-aos="fade-up" class="text-center text-gray-400 text-sm py-4 mt-6">
             Page rendered in <strong><?php echo lava_instance()->performance->elapsed_time('lavalust'); ?></strong> seconds.
             Memory usage: <?php echo lava_instance()->performance->memory_usage(); ?>.
             <?php if (config_item('ENVIRONMENT') === 'development'): ?>
@@ -94,7 +97,13 @@ defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
         </footer>
     </section>
 
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
     <script>
+        AOS.init({
+            duration: 800, // animation duration
+            once: false // animate only once
+        });
+
         function showLoading(event) {
             event.preventDefault(); // Stop default link navigation
             const url = event.currentTarget.href;

@@ -70,7 +70,7 @@ class UserController extends Controller {
         }
     }
     //
-
+    
     // Function Update
     public function update($id) {
         $data['user'] = $this->UserModel->find($id);
@@ -78,10 +78,12 @@ class UserController extends Controller {
             $lastname = $this->io->post('last_name');
             $firstname = $this->io->post('first_name');
             $email = $this->io->post('email');
+            $status = $this->io->post('status');
             $data = array(
                 'last_name' => $lastname,
                 'first_name' => $firstname,
-                'email' => $email
+                'email' => $email,
+                'status' => $status
             );
             if($this->UserModel->update($id, $data)){
                 redirect('users/show');

@@ -28,7 +28,8 @@ class UserModel extends Model {
             $query->like('id', '%' . $q . '%')
                 ->or_like('first_name', '%' . $q . '%')
                 ->or_like('last_name', '%' . $q . '%')
-                ->or_like('email', '%' . $q . '%');
+                ->or_like('email', '%' . $q . '%')
+                ->or_like('status', '%' . $q . '%');
 
             // Copy query to count total matching rows
             $countQuery = clone $query;
