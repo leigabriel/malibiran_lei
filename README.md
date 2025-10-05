@@ -1,10 +1,3 @@
-# Simple User Management CRUD using LavaLust
-
-This is a simple User Management system built using **LavaLust**.  
-It allows you to **add, view, update, and delete users** easily using the framework.
-
----
-
 ## LavaLust 4 (Latest 4.2.4)
 <p align="center">
     <img width="200" height="300" src="https://raw.githubusercontent.com/ronmarasigan/LavaLust-Docs/master/assets/images/logo1.png">
