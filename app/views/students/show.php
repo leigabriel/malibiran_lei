@@ -8,7 +8,7 @@ defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Dashboard</title>
+    <title>Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
         body {
@@ -26,7 +26,7 @@ defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
 
             <!-- Title -->
             <h1 class="text-center sm:text-left text-lg sm:text-2xl font-bold whitespace-nowrap">
-                User Data Dashboard
+                User Data List
             </h1>
 
             <!-- Right Controls -->
@@ -36,21 +36,35 @@ defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
                 <form action="<?= site_url('users/show'); ?>" method="get"
                     class="flex flex-col sm:flex-row sm:items-center gap-2 w-full sm:w-auto">
                     <?php $q = isset($_GET['q']) ? $_GET['q'] : ''; ?>
-                    <input type="text" name="q" placeholder="Search records..." value="<?= html_escape($q); ?>"
+                    <input type="text" name="q" placeholder="Search for a records..." value="<?= html_escape($q); ?>"
                         class="px-3 py-2 rounded-md bg-[#212631] border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white w-full sm:w-64">
 
                     <div class="flex gap-2 justify-center sm:justify-start">
                         <!-- Search -->
-                        <button type="submit"
-                            class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center transition hover:bg-blue-700">
-                            <img src="https://cdn-icons-png.flaticon.com/128/10947/10947920.png" alt="Search" class="w-6 h-6">
-                        </button>
+                        <div class="relative group">
+                            <button type="submit"
+                                class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center transition hover:bg-blue-700">
+                                <img src="https://cdn-icons-png.flaticon.com/128/10947/10947920.png" alt="Search" class="w-6 h-6">
+                            </button>
+                            <!-- Tooltip -->
+                            <span
+                                class="absolute left-1/2 transform -translate-x-1/2 mt-2 px-2 py-1 text-xs rounded bg-gray-800 text-white opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                Search
+                            </span>
+                        </div>
 
                         <!-- Clear -->
-                        <a href="<?= site_url('users/show'); ?>"
-                            class="w-10 h-10 bg-white rounded-full flex items-center justify-center transition hover:bg-gray-300">
-                            <img src="https://cdn-icons-png.flaticon.com/128/5249/5249162.png" alt="Clear" class="w-6 h-6">
-                        </a>
+                        <div class="relative group">
+                            <a href="<?= site_url('users/show'); ?>"
+                                class="w-10 h-10 bg-white rounded-full flex items-center justify-center transition hover:bg-gray-300">
+                                <img src="https://cdn-icons-png.flaticon.com/128/5249/5249162.png" alt="Clear" class="w-6 h-6">
+                            </a>
+                            <!-- Tooltip -->
+                            <span
+                                class="absolute left-1/2 transform -translate-x-1/2 mt-2 px-2 py-1 text-xs rounded bg-gray-800 text-white opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                Clear
+                            </span>
+                        </div>
                     </div>
                 </form>
 
@@ -59,11 +73,18 @@ defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
                 $current_role = isset($_SESSION['role']) ? $_SESSION['role'] : '';
                 if ($current_role === 'admin'):
                 ?>
-                    <a href="<?= site_url('users/create'); ?>"
-                        class="w-10 h-10 bg-white rounded-full flex items-center justify-center transition hover:bg-gray-400"
-                        onclick="showLoading(event)">
-                        <img src="https://cdn-icons-png.flaticon.com/128/8377/8377219.png" alt="Create" class="w-6 h-6">
-                    </a>
+                    <div class="relative group">
+                        <a href="<?= site_url('users/create'); ?>"
+                            class="w-10 h-10 bg-white rounded-full flex items-center justify-center transition hover:bg-gray-400"
+                            onclick="showLoading(event)">
+                            <img src="https://cdn-icons-png.flaticon.com/128/8377/8377219.png" alt="Create" class="w-6 h-6">
+                        </a>
+                        <!-- Tooltip -->
+                        <span
+                            class="absolute left-1/2 transform -translate-x-1/2 mt-2 px-2 py-1 text-xs rounded bg-gray-800 text-white opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                            Create
+                        </span>
+                    </div>
                 <?php endif; ?>
 
                 <!-- Logout -->
@@ -102,7 +123,7 @@ defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
     </nav>
 
     <!-- Main Content -->
-    <section class="w-full px-3 sm:px-6 pt-32 sm:pt-36 pb-10">
+    <section class="w-full px-3 sm:px-6 pt-32 sm:pt-32 pb-10">
         <div class="overflow-x-auto rounded-lg shadow-xl shadow-gray-700/30">
             <table class="min-w-full border border-gray-700 border-collapse bg-[#212631] text-white text-sm sm:text-base">
                 <thead class="bg-[#1b1f29]">
@@ -136,7 +157,7 @@ defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
                             <td class="px-3 sm:px-4 py-2 sm:py-3 border-r border-gray-700">
                                 <?php if (!empty($user['status'])): ?>
                                     <span class="px-2 py-1 rounded-full text-xs font-semibold 
-            <?= $user['status'] === 'Active' ? 'bg-green-500' : ($user['status'] === 'Inactive' ? 'bg-red-500' : 'bg-gray-500'); ?>">
+                                    <?= $user['status'] === 'Active' ? 'bg-green-600' : ($user['status'] === 'Inactive' ? 'bg-red-600' : 'bg-gray-600'); ?>">
                                         <?= html_escape($user['status']); ?>
                                     </span>
                                 <?php else: ?>
@@ -190,7 +211,6 @@ defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
         <!-- Pagination -->
         <div class="fixed bottom-4 right-4 flex flex-wrap gap-2 z-50"> <?php if (isset($page)) echo $page; ?> </div>
     </section>
-
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const logoutBtn = document.getElementById("logoutBtn");
