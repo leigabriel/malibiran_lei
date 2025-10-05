@@ -1,6 +1,18 @@
+# CRUD: User Management System using LavaLust Framework  
+
+A simple and lightweight user management system built with the **LavaLust PHP Framework**.  
+It allows you to manage users, login, and register easily.  
+
+## Features  
+- User authentication (login & register)  
+- View users list  
+- Create, Update, and Delete 
+- Lightweight and fast  
+
+<br>
 ## LavaLust 4 (Latest 4.2.4)
 <p align="center">
-    <img width="200" height="300" src="https://raw.githubusercontent.com/ronmarasigan/LavaLust-Docs/master/assets/images/logo1.png">
+    <img width="200" height="300" src="https://camo.githubusercontent.com/c044d580adc392e4841438302338827f9320ea7c0fafc904c7afaad34e8cdfc8/68747470733a2f2f6c6176616c7573742e6e65746c6966792e6170702f5f696d616765732f6c6f676f2e706e67">
 </p>
     LavaLust is a lightweight Web Framework - (using MVC pattern) - for people who are developing web sites using PHP. It helps you write code easily using Object-Oriented Approach. It also provides set of libraries for commonly needed tasks, as well as a helper functions to minimize the amount of time coding.
 
