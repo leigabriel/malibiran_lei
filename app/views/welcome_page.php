@@ -22,7 +22,7 @@ defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
     <div class="text-center space-y-6 max-w-xl">
         <h1 class="text-6xl font-bold">User Management</h1>
         <p class="text-xl text-gray-300">
-            Manage your users quickly and securely using <span class="bg-orange-700 font-bold italic rounded-xl px-2">LavaLust Framework.</span>
+            Manage your users quickly and securely using <span class="bg-orange-500 font-bold italic rounded-md px-2">LavaLust Framework.</span>
 
         </p>
 
@@ -31,13 +31,13 @@ defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
             <!-- View Users -->
             <a href="<?= site_url('login'); ?>"
                 class="px-6 py-3 border-1 border-green-500 text-green-500 font-semibold rounded-xl transition hover:bg-green-500 hover:text-white">
-                View Users
+                Login
             </a>
 
             <!-- Add User -->
-            <a href="<?= site_url('login'); ?>"
+            <a href="<?= site_url('register'); ?>"
                 class="px-6 py-3 border-1 border-blue-500 text-blue-500 font-semibold rounded-xl transition hover:bg-blue-500 hover:text-white">
-                Add User
+                Register
             </a>
         </div>
     </div>
